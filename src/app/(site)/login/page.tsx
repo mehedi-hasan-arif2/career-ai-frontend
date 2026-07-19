@@ -13,7 +13,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [demoLoading, setDemoLoading] = useState(false);
   const { user, setUser } = useAuth();
   const router = useRouter();
 
@@ -26,6 +25,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const res = await api.post("/auth/login", { email, password });
+      localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
       toast.success("Welcome back!");
       router.push("/dashboard");
@@ -37,19 +37,10 @@ export default function LoginPage() {
     }
   }
 
-  async function handleDemoLogin() {
-    setDemoLoading(true);
-    try {
-      const res = await api.post("/auth/demo-login");
-      setUser(res.data.user);
-      toast.success("Logged in as demo user");
-      router.push("/dashboard");
-      router.refresh();
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-    } finally {
-      setDemoLoading(false);
-    }
+  function handleDemoLogin() {
+    setEmail("demo@careerai.dev");
+    setPassword("demo12345");
+    toast.success("Demo credentials filled — click Log In to continue");
   }
 
   return (
@@ -81,7 +72,7 @@ export default function LoginPage() {
           <Button type="submit" className="w-full" loading={loading}>Log In</Button>
         </form>
 
-        <Button variant="outline" className="w-full mt-3" onClick={handleDemoLogin} loading={demoLoading}>
+        <Button variant="outline" className="w-full mt-3" onClick={handleDemoLogin}>
           Try Demo Account
         </Button>
 

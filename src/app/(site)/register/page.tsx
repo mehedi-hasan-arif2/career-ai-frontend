@@ -30,6 +30,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       const res = await api.post("/auth/register", { name, email, password });
+      localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
       toast.success("Account created successfully");
       router.push("/dashboard");

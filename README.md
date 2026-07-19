@@ -8,7 +8,7 @@ This repository contains the **frontend application** built with Next.js, TypeSc
 
 ## Live Demo
 
-* **Client:** 
+* **Client:** https://career-ai12.netlify.app
 
 ## Key Features
 
@@ -73,7 +73,6 @@ Create a `.env.local` file in the project root:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_oauth_client_id
 ```
 
 The Google Client ID must match the one configured on the backend.

@@ -37,6 +37,7 @@ export function Navbar() {
 
   async function handleLogout() {
     await api.post("/auth/logout");
+    localStorage.removeItem("token");
     setUser(null);
     toast.success("Logged out successfully");
     router.push("/");
