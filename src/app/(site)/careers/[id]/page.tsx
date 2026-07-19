@@ -41,7 +41,7 @@ export default function CareerDetailsPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div className="relative h-72 w-full rounded-card overflow-hidden bg-slate-100 mb-8">
-        {item.imageUrl && <Image src={item.imageUrl} alt={item.title} fill className="object-cover" />}
+        {item.imageUrl && <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 768px) 100vw, 800px" className="object-cover" />}
       </div>
 
       <div className="flex items-center gap-2 mb-3">

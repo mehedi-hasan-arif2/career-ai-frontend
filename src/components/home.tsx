@@ -7,7 +7,8 @@ import {
   BarChart3, Cloud, Megaphone, Star, ChevronDown, ArrowRight, MessageCircle,
 } from "lucide-react";
 import { Button, Card, Badge } from "./ui";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "@/lib/api";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -131,8 +132,17 @@ export function Categories() {
 }
 
 export function Statistics() {
+  const [careerTrackCount, setCareerTrackCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    api
+      .get("/career", { params: { limit: 1 } })
+      .then((res) => setCareerTrackCount(res.data.total))
+      .catch(() => setCareerTrackCount(null));
+  }, []);
+
   const stats = [
-    { value: "8+", label: "Career Tracks" },
+    { value: careerTrackCount !== null ? `${careerTrackCount}+` : "—", label: "Career Tracks" },
     { value: "2", label: "Agentic AI Features" },
     { value: "100%", label: "Personalized Plans" },
     { value: "24/7", label: "AI Availability" },
